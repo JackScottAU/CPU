@@ -1,0 +1,85 @@
+\documentclass[a4paper]{report}
+\usepackage{a4wide}
+\usepackage{bytefield}
+\pagestyle{headings}
+
+\begin{document}
+	
+\title{C824 Microprocessor}
+\author{Jack Scott\\
+	The Foo Project Pty. Ltd.\\
+	\texttt{jack.scott@fooproject.com}}
+\date{\today}
+\maketitle
+
+\tableofcontents
+	
+\part{General Information}
+
+\chapter{Reason for Existing}
+
+\section{Introduction}
+
+The C824 is a 16-bit microprocessor designed for low-power, low-performance situations where clarity of design and ease of use is paramount. The processor features:
+
+\begin{itemize}
+	\item 8-bit data bus.
+	\item 24-bit address bus, allowing access to 16MiB of memory.
+	\item Memory-mapped I/O.
+	\item RISC design, with an orthogonal instruction set architecture.
+	\item 16 registers.
+	\item Most significant byte first.
+\end{itemize}
+
+\chapter{Architectural Overview}
+
+\section{Registers}
+The 16 registers on the C824 are named R0-R15. All registers are 16 bits wide except R15, which is 24 bits.
+\begin{itemize}
+	\item R0 is an implied accumulator in shortened forms of arithmetic instructions, but is otherwise normal.
+	\item R1-R11 are general purpose registers.
+	\item R12 is the processor flags register.
+	\item R13 is the stack pointer.
+	\item R14 is the stack segment, a 64KiB area used by the stack. Represents the top 16 address lines.
+	\item R15 is the instruction pointer (24 bits wide).
+\end{itemize}
+
+\subsection{Flags Register}
+Asdf
+
+\section{The Stack}
+When reading or writing to the stack, the final address (put out onto the address lines) is defined by:
+Address = R13 + (R14<<8)
+So given R13=0x1111 and R14=0x2222, the final address would be 0x223311. It is important to note that R14 can be above 0xFF00, which would mean the stack space wraps around to the bottom of memory. This is confusing, but perfectly okay as far as the CPU is concerned (though in all likeliness that is where the ROM is).
+The stack grows upwards, to a maximum size of 64KiB.
+
+\section{Initialisation State}
+When brought out of reset, the CPU has the following state:
+R15 (instruction pointer) is set to 0x000000.
+R14 (stack segment) is set to 0x1000.
+R13 (stack pointer) is set to 0x0000.
+<FLAGS TODO>
+
+\part{Instruction Set Reference}
+
+\chapter{Special Instructions}
+
+\section{NOP}
+
+\section{HLT}
+
+\section{INTE}
+
+\section{INTD}
+
+\section{INTL}
+
+\chapter{ALU Instructions}
+
+\section{ADD}
+
+\section{SUB}
+
+\chapter{Load/Store Instructions}
+
+\end{document}
